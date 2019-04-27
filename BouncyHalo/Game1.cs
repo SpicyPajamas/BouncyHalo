@@ -12,7 +12,7 @@ namespace BouncyHalo
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         Player player;
-
+        EV environment;
 
         public Game1()
         {
@@ -45,6 +45,7 @@ namespace BouncyHalo
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             player = new Player(10, 50, Content);
+            environment = new EV(Content);
             // TODO: use this.Content to load your game content here
         }
 
@@ -69,6 +70,7 @@ namespace BouncyHalo
 
             // TODO: Add your update logic here
             player.update();
+            environment.update();
             base.Update(gameTime);
         }
 
@@ -82,6 +84,7 @@ namespace BouncyHalo
 
             // TODO: Add your drawing code here
             spriteBatch.Begin();
+            environment.draw(spriteBatch);
             player.draw(spriteBatch);
             spriteBatch.End();
             base.Draw(gameTime);
