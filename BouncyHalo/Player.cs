@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -47,11 +48,32 @@ namespace BouncyHalo
         public void update()
         {
             position.Y += 1f;
+            KeyboardState state = Keyboard.GetState();
+            if (state.IsKeyDown(Keys.Right) == true)
+            {
+                position.X += 10f;
+            }
+            if (state.IsKeyDown(Keys.Left) == true)
+            {
+                position.X -= 10f;
+            }
+            if (state.IsKeyDown(Keys.Up) == true)
+            {
+                position.Y -= 10f;
+            }
+                if (state.IsKeyDown(Keys.Down) == true)
+            {
+                position.Y += 10f;
+            }
+
+
+
         }
-      
 
 
-       
+
+
+
 
     }
 
