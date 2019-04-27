@@ -11,12 +11,16 @@ namespace BouncyHalo
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        Player player;
+
 
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            
+            graphics.PreferredBackBufferWidth = 1920;
+            graphics.PreferredBackBufferHeight = 1080;
+
         }
 
         /// <summary>
@@ -40,7 +44,7 @@ namespace BouncyHalo
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
+            player = new Player(10, 50, Content);
             // TODO: use this.Content to load your game content here
         }
 
@@ -77,7 +81,7 @@ namespace BouncyHalo
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
-
+            player.draw(spriteBatch);
             base.Draw(gameTime);
         }
     }
