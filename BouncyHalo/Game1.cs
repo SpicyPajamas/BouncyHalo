@@ -81,7 +81,9 @@ namespace BouncyHalo
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
+            spriteBatch.Begin();
             player.draw(spriteBatch);
+            spriteBatch.End();
             base.Draw(gameTime);
         }
     }
