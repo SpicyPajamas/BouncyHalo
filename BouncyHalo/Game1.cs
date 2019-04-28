@@ -74,7 +74,7 @@ namespace BouncyHalo
             menu = new Menu(Content);
             gameEnd = new GameEnd(Content);
 
-            ThemeSong = Content.Load<Song>("Halo Pixel Force OST - Enough Dead 8 Bit Heroes Escape");
+            ThemeSong = Content.Load<Song>("HaloMusic");
             MediaPlayer.Play(ThemeSong);
             HealthText = "Health: ";
             PLHealth = 100;
