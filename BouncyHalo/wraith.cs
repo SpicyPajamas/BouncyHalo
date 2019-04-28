@@ -1,23 +1,18 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BouncyHalo
 {
-    class wraith
+    internal class wraith
     {
-        Texture2D bigfukker;
-        Texture2D thruster1;
-        Texture2D thruster2;
-        Texture2D lgLazor;
-        Vector2 position;
-        Vector2 tO1;
-        Vector2 tO2;
+        private readonly Texture2D bigfukker;
+        private readonly Texture2D thruster1;
+        private readonly Texture2D thruster2;
+        private readonly Texture2D lgLazor;
+        private Vector2 position;
+        private Vector2 tO1;
+        private Vector2 tO2;
 
         public wraith(float x, float y, ContentManager content)
         {
@@ -31,13 +26,13 @@ namespace BouncyHalo
 
 
         }
-            public void draw(SpriteBatch sb)
+        public void draw(SpriteBatch sb)
         {
             sb.Draw(bigfukker, position, null, Color.White, 0, Vector2.Zero, Vector2.One, SpriteEffects.FlipHorizontally, 0);
             sb.Draw(thruster1, position + tO2, null, Color.White, 0, Vector2.Zero, Vector2.One, SpriteEffects.None, 0);
             sb.Draw(thruster2, position + tO1, null, Color.White, 0, Vector2.Zero, Vector2.One, SpriteEffects.None, 0);
 
-//        }
+        }
 
 
         public void update(GameTime dt)
@@ -45,10 +40,10 @@ namespace BouncyHalo
 
             position.X -= 2f;
 
-//        }
+        }
 
 
 
     }
 
-//}
+}
