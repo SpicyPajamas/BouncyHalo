@@ -17,6 +17,10 @@ namespace BouncyHalo
         EV environment;
         List<Banshee> banshees;
         List<wraith> bigfukkers;
+        Menu menu;
+        GameEnd gameEnd;
+
+        int state;
 
         public Game1()
         {
@@ -54,6 +58,9 @@ namespace BouncyHalo
             player = new Player(10, 50, Content);
             environment = new EV(Content);
 
+            menu = new Menu(Content);
+            gameEnd = new GameEnd(Content);
+
 
             AddWraith();
             AddBanshee();
@@ -78,21 +85,38 @@ namespace BouncyHalo
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-
-            // TODO: Add your update logic here
+            
             player.update(gameTime);
             environment.update();
-            foreach (var banshee in banshees)
-                banshee.Update(gameTime);
-            foreach (var wraith in bigfukkers)
-                wraith.update(gameTime);
 
-            bigfukkers.RemoveAll(b => b.position.X < -600);
-            if (bigfukkers.Count == 0)
-                AddWraith();
-            banshees.RemoveAll(b => b.Body.X + b.Body.Width < -300);
-            if (banshees.Count == 0)
-                AddBanshee();
+            if (state == 0)
+            {
+                if (menu?.Update() ?? true)
+                {
+                    state = 2;
+                }
+            }
+            else if (state == 1)
+            {
+                foreach (var banshee in banshees)
+                    banshee.Update(gameTime);
+                foreach (var wraith in bigfukkers)
+                    wraith.update(gameTime);
+
+                bigfukkers.RemoveAll(b => b.position.X < -600);
+                if (bigfukkers.Count == 0)
+                    AddWraith();
+                banshees.RemoveAll(b => b.Body.X + b.Body.Width < -300);
+                if (banshees.Count == 0)
+                    AddBanshee();
+            }
+            else if (state == 2)
+            {
+                if (gameEnd?.update() ?? true)
+                {
+                    state = 1;
+                }
+            }
 
             base.Update(gameTime);
         }
@@ -122,10 +146,21 @@ namespace BouncyHalo
             environment.draw(spriteBatch);
             player.draw(spriteBatch);
 
-            foreach (var banshee in banshees)
-                banshee.Draw(spriteBatch);
-            foreach (var wraith in bigfukkers)
-                wraith.draw(spriteBatch);
+            if (state == 0)
+            {
+                menu.Draw(spriteBatch);
+            }
+            else if (state == 1)
+            {
+                foreach (var banshee in banshees)
+                    banshee.Draw(spriteBatch);
+                foreach (var wraith in bigfukkers)
+                    wraith.draw(spriteBatch);
+            }
+            else if (state == 2)
+            {
+                gameEnd.draw(spriteBatch);
+            }
 
             spriteBatch.End();
             base.Draw(gameTime);

@@ -10,28 +10,32 @@ using System.Threading.Tasks;
 
 namespace BouncyHalo
 {
-    class GameEnd
+    class Menu
     {
         SpriteFont Font;
 
-        Vector2 TextPosition;
+        Vector2 TitlePosition;
         Vector2 PressPosition;
 
-        string Text;
+        string Title;
         string Press;
+
         bool HasBeenCleared;
 
-        public GameEnd(ContentManager content)
+
+        public Menu(ContentManager content)
         {
             Font = content.Load<SpriteFont>("File");
-            Text = "You have lost, eat butts.";
-            Press = "Press space to continue.";
-            TextPosition = new Vector2(600, 300);
+
+            TitlePosition = new Vector2(600, 300);
             PressPosition = new Vector2(600, 600);
+
+            Title = "Big Tiddies";
+            Press = "Press Space to begin.";
         }
 
 
-        public bool update()
+        public bool Update()
         {
             KeyboardState state = Keyboard.GetState();
             if (!HasBeenCleared)
@@ -40,10 +44,12 @@ namespace BouncyHalo
             return HasBeenCleared && state.IsKeyDown(Keys.Space);
         }
 
-        public void draw(SpriteBatch sb)
+        public void Draw(SpriteBatch sb)
         {
-            sb.DrawString(Font, Text, TextPosition, Color.White);
+            sb.DrawString(Font, Title, TitlePosition, Color.White);
             sb.DrawString(Font, Press, PressPosition, Color.White);
         }
+
+
     }
 }
