@@ -25,7 +25,7 @@ namespace BouncyHalo
         float UpAnimTime = 1000f;
         bool GoingUp;
 
-        int Health = 50;
+        int Health = 20;
         public bool IsDead;
 
         List<IEnemy> Targets;

@@ -29,7 +29,7 @@ namespace BouncyHalo
         float ShootTimer;
         float ShootTime = 1500f;
 
-        int Health = 100;
+        int Health = 450;
         public bool IsDead;
 
         List<IEnemy> Targets;
@@ -104,13 +104,18 @@ namespace BouncyHalo
 
         public bool IsCollided(Rectangle body)
         {
-            var topRight = new Vector2(position.X + bigfukker.Width, position.Y);
-            var bottomRight = new Vector2(position.X + bigfukker.Width, position.Y + bigfukker.Height);
-            var bottomLeft = new Vector2(position.X, position.Y + bigfukker.Height);
-            if (body.Contains(position) || body.Contains(topRight) ||
-                body.Contains(bottomRight) || body.Contains(bottomLeft))
-                return true;
-            return false;
+            //var topRight = new Vector2(position.X + bigfukker.Width, position.Y);
+            //var bottomRight = new Vector2(position.X + bigfukker.Width, position.Y + bigfukker.Height);
+            //var bottomLeft = new Vector2(position.X, position.Y + bigfukker.Height);
+            //if (body.Contains(position) || body.Contains(topRight) ||
+            //    body.Contains(bottomRight) || body.Contains(bottomLeft))
+            //    return true;
+            //return false;
+
+            return (body.X < position.X + bigfukker.Width &&
+            body.X + body.Width > position.X &&
+            body.Y < position.Y + bigfukker.Height &&
+            body.Y + body.Height > position.Y); 
         }
 
         public void DoDamage(int damage)

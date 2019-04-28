@@ -98,7 +98,7 @@ namespace BouncyHalo
                 if(state.IsKeyDown(Keys.Space))
                 {
                     ShootTimer = 0;
-                    Lasers.Add(new Laser((int)position.X + pelican.Width - 30, (int)position.Y + pelican.Height - 16, 16, 8, -30, 10, LaserSprite, Targets));
+                    Lasers.Add(new Laser((int)position.X + pelican.Width - 30, (int)position.Y + pelican.Height - 16, 16, 8, -30, 1, LaserSprite, Targets));
                 }
             }
 
@@ -149,13 +149,10 @@ namespace BouncyHalo
 
         public bool IsCollided(Rectangle body)
         {
-            var topRight = new Vector2(position.X + pelican.Width, position.Y);
-            var bottomRight = new Vector2(position.X + pelican.Width, position.Y + pelican.Height);
-            var bottomLeft = new Vector2(position.X, position.Y + pelican.Height);
-            if (body.Contains(position) || body.Contains(topRight) ||
-                body.Contains(bottomRight) || body.Contains(bottomLeft))
-                return true;
-            return false;
+            return (body.X < position.X + pelican.Width &&
+            body.X + body.Width > position.X &&
+            body.Y < position.Y + pelican.Height &&
+            body.Y + body.Height > position.Y);
         }
 
         public void DoDamage(int damage)
