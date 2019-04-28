@@ -42,7 +42,7 @@ namespace BouncyHalo
             flameRoffset = new Vector2(40, 130);
             flameScale = new Vector2(2, 2);
             engineRotation = 0f;
-            engineOrigin = new Vector2(engine.Width / 2, engine.Height / 2);
+            engineOrigin = new Vector2(0, 0);
         }
 
         public void draw(SpriteBatch sb)

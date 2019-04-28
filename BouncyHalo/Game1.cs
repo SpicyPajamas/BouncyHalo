@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.Collections.Generic;
 
 namespace BouncyHalo
 {
@@ -13,6 +14,7 @@ namespace BouncyHalo
         SpriteBatch spriteBatch;
         Player player;
         EV environment;
+        List<Banshee> banshees;
 
         public Game1()
         {
@@ -20,6 +22,7 @@ namespace BouncyHalo
             Content.RootDirectory = "Content";
             graphics.PreferredBackBufferWidth = 1920;
             graphics.PreferredBackBufferHeight = 1080;
+            banshees = new List<Banshee>();
 
         }
 
@@ -46,6 +49,8 @@ namespace BouncyHalo
             spriteBatch = new SpriteBatch(GraphicsDevice);
             player = new Player(10, 50, Content);
             environment = new EV(Content);
+
+            banshees.Add(new Banshee(1900, 500, Content));
             // TODO: use this.Content to load your game content here
         }
 
@@ -71,6 +76,8 @@ namespace BouncyHalo
             // TODO: Add your update logic here
             player.update(gameTime);
             environment.update();
+            foreach (var banshee in banshees)
+                banshee.Update(gameTime);
             base.Update(gameTime);
         }
 
@@ -86,6 +93,8 @@ namespace BouncyHalo
             spriteBatch.Begin();
             environment.draw(spriteBatch);
             player.draw(spriteBatch);
+            foreach (var banshee in banshees)
+                banshee.Draw(spriteBatch);
             spriteBatch.End();
             base.Draw(gameTime);
         }
