@@ -6,5 +6,6 @@ namespace BouncyHalo
     {
         bool IsCollided(Rectangle body);
         void DoDamage(int damage);
+        void flicker(Color color);
     }
 }

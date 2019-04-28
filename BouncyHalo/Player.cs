@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,11 +26,16 @@ namespace BouncyHalo
         Vector2 flameScale;
         Vector2 engineOrigin;
         Vector2 flamesOrigin;
+        Color hitColor;
+
 
         List<Laser> Lasers;
 
         float ShootTimer;
         float ShootTime = 50f;
+        float flickerTimer;
+        float flickerTime = 30f;
+
         int flameShuffleTimer;
         int flameShuffleTime = 75;
         bool showLeftFlame;
@@ -38,6 +44,8 @@ namespace BouncyHalo
         public int Health = 100;
         int Damage = 20;
         public bool IsDead;
+
+        
 
         List<IEnemy> Targets;
 
@@ -53,7 +61,7 @@ namespace BouncyHalo
             LaserSprite = content.Load<Texture2D>("orange-bullet-1");
 
             Lasers = new List<Laser>();
-
+            
             position = new Vector2(x, y);
             engineoffset = new Vector2(140 + (engine.Width * 0.5f), 120 + (engine.Height * 0.5f));
             flamesOrigin = new Vector2(engineoffset.X + flameL.Width, engineoffset.Y + flameL.Height);
@@ -62,18 +70,19 @@ namespace BouncyHalo
             flameScale = new Vector2(2, 2);
             engineOrigin = new Vector2((engine.Width * 0.5f), (engine.Height * 0.5f));
             engineRotation = 0f;
+            hitColor = Color.White;
         }
 
         public void draw(SpriteBatch sb)
         {
-            sb.Draw(pelican, position, Color.White);
+            sb.Draw(pelican, position, hitColor);
 
             if (showLeftFlame)
-                sb.Draw(flameL, position + flameLoffset, null, Color.White, engineRotation, engineOrigin, flameScale, SpriteEffects.FlipHorizontally, 0);
+                sb.Draw(flameL, position + flameLoffset, null, hitColor, engineRotation, engineOrigin, flameScale, SpriteEffects.FlipHorizontally, 0);
             else
-                sb.Draw(flameR, position + flameLoffset, null, Color.White, engineRotation, engineOrigin, flameScale, SpriteEffects.FlipHorizontally, 0);
+                sb.Draw(flameR, position + flameLoffset, null, hitColor, engineRotation, engineOrigin, flameScale, SpriteEffects.FlipHorizontally, 0);
 
-            sb.Draw(engine, position + engineoffset, null, Color.White, engineRotation, engineOrigin, Vector2.One, SpriteEffects.FlipHorizontally, 0);
+            sb.Draw(engine, position + engineoffset, null, hitColor, engineRotation, engineOrigin, Vector2.One, SpriteEffects.FlipHorizontally, 0);
 
             foreach (var laser in Lasers)
                 laser.Draw(sb);
@@ -100,7 +109,16 @@ namespace BouncyHalo
                     ShootTimer = 0;
                     Lasers.Add(new Laser((int)position.X + pelican.Width - 30, (int)position.Y + pelican.Height - 16, 16, 8, -30, Damage, LaserSprite, Targets));
                 }
+
             }
+            flickerTimer += dt.ElapsedGameTime.Milliseconds;
+            if (flickerTimer >= flickerTime)
+            {
+                hitColor = Color.White;
+
+            }
+
+            
 
         }
 
@@ -162,11 +180,17 @@ namespace BouncyHalo
 
         public void DoDamage(int damage)
         {
+
             Health -= damage;
             if (Health < 0)
                 IsDead = true;
         }
 
+        public void flicker(Color color)
+        {
+            hitColor = color;
+            flickerTimer = 0;
+        }
     }
 
    

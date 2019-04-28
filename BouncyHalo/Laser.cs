@@ -36,6 +36,7 @@ namespace BouncyHalo
                 { 
                     target.DoDamage(Damage);
                     IsDead = true;
+                    target.flicker (Color.Red);
                 }
             }
         }

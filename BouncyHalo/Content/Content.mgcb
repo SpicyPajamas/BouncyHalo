@@ -85,12 +85,12 @@
 /processorParam:TextureFormat=Color
 /build:../../Assets/flameR.png;flameR.png
 
-#begin ../../Assets/fonts/File.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:../../Assets/fonts/File.spritefont;File.spritefont
+#begin ../../Assets/Halo Pixel Force OST - Enough Dead 8 Bit Heroes Escape.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:../../Assets/Halo Pixel Force OST - Enough Dead 8 Bit Heroes Escape.mp3;Theme
+
 
 #begin ../../Assets/large-lazor.png
 /importer:TextureImporter
@@ -103,30 +103,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:../../Assets/large-lazor.png;large-lazor.png
-
-#begin ../../Assets/orange-bullet-1.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:../../Assets/orange-bullet-1.png;orange-bullet-1.png
-
-#begin ../../Assets/orange-bullet-2.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:../../Assets/orange-bullet-2.png;orange-bullet-2.png
 
 #begin ../../Assets/orange-flame-1.png
 /importer:TextureImporter

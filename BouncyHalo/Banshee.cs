@@ -82,5 +82,9 @@ namespace BouncyHalo
             if (Health < 0)
                 IsDead = true;
         }
+
+        public void flicker(Color color)
+        {
+        }
     }
 }

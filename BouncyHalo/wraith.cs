@@ -125,6 +125,9 @@ namespace BouncyHalo
                 IsDead = true;
         }
 
+        public void flicker(Color color)
+        {
+        }
     }
 
 }
