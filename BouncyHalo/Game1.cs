@@ -105,11 +105,8 @@ namespace BouncyHalo
         private void AddWraith()
         {
             var rng = new Random();
-            var isTop = rng.Next(2);
-            if (isTop == 0)
-                bigfukkers.Add(new wraith(1900, rng.Next(0, 100), Content));
-            else
-                bigfukkers.Add(new wraith(1900, rng.Next(780, 880), Content));
+            bigfukkers.Add(new wraith(1900, rng.Next(0, 400), Content));
+            bigfukkers.Add(new wraith(1900, rng.Next(500, 800), Content));
         }
 
         /// <summary>
