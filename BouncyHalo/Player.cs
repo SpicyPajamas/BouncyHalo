@@ -37,12 +37,13 @@ namespace BouncyHalo
             flameL = content.Load<Texture2D>("flameL");
             flameR = content.Load<Texture2D>("flameR");
             position = new Vector2(x, y);
-            engineoffset = new Vector2(120, 135);
-            flameLoffset = new Vector2(50, 130);
+            engineoffset = new Vector2(140 + (engine.Width * 0.5f), 120 + (engine.Height * 0.5f));
+            flamesOrigin = new Vector2(engineoffset.X + flameL.Width, engineoffset.Y + flameL.Height);
+            flameLoffset = new Vector2(190, 160);
             flameRoffset = new Vector2(40, 130);
             flameScale = new Vector2(2, 2);
             engineRotation = 0f;
-            engineOrigin = new Vector2(0, 0);
+            engineOrigin = new Vector2((engine.Width * 0.5f), (engine.Height * 0.5f));
         }
 
         public void draw(SpriteBatch sb)
@@ -94,13 +95,13 @@ namespace BouncyHalo
 
                 if (position.Y >= 0)
                     position.Y -= 10f;
-                engineRotation = -0.785f;
+                engineRotation = -0.55f;
             }
             if (state.IsKeyDown(Keys.Down) || state.IsKeyDown(Keys.S))
             {
                 if (position.Y + pelican.Height <= 1080)
                     position.Y += 10f;
-                engineRotation = 0.785f;
+                engineRotation = 0.55f;
             }
             if (!(state.IsKeyDown(Keys.Down) || state.IsKeyDown(Keys.S) || state.IsKeyDown(Keys.Up) || state.IsKeyDown(Keys.W)))
                 engineRotation = 0;
