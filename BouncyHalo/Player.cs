@@ -147,6 +147,11 @@ namespace BouncyHalo
 
         }
 
+        internal bool IsCollided(Func<object, object> p)
+        {
+            throw new NotImplementedException();
+        }
+
         public bool IsCollided(Rectangle body)
         {
             return (body.X < position.X + pelican.Width &&

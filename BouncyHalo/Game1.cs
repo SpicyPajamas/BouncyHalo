@@ -21,6 +21,10 @@ namespace BouncyHalo
         GameEnd gameEnd;
         List<IEnemy> Enemies;
 
+        string HealthText;
+        int PLHealth;
+        Vector2 HTPosition;
+
         string Text;
         int Score;
         SpriteFont Font;
@@ -69,6 +73,11 @@ namespace BouncyHalo
             menu = new Menu(Content);
             gameEnd = new GameEnd(Content);
 
+            HealthText = "Health: ";
+            PLHealth = 100;
+            Font = Content.Load<SpriteFont>("File");
+            HTPosition = new Vector2(10, 10);
+            
 
             Text = "Score: ";
             Score = 0;
@@ -119,6 +128,8 @@ namespace BouncyHalo
                     banshee.Update(gameTime);
                 foreach (var wraith in bigfukkers)
                     wraith.update(gameTime);
+
+                PLHealth = player.Health;
 
                 Score += bigfukkers.FindAll(BF => BF.IsDead).Count;
                 Score += banshees.FindAll(Banch => Banch.IsDead).Count;
@@ -183,7 +194,7 @@ namespace BouncyHalo
                     banshee.Draw(spriteBatch);
                 foreach (var wraith in bigfukkers)
                     wraith.draw(spriteBatch);
-
+                spriteBatch.DrawString(Font, HealthText + PLHealth, HTPosition, Color.White);
                 spriteBatch.DrawString(Font, Text + Score, TextPosition, Color.White);
             }
             else if (state == 2)
