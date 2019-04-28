@@ -21,6 +21,11 @@ namespace BouncyHalo
         GameEnd gameEnd;
         List<IEnemy> Enemies;
 
+        string Text;
+        int Score;
+        SpriteFont Font;
+        Vector2 TextPosition;
+
         int state;
 
         public Game1()
@@ -33,6 +38,7 @@ namespace BouncyHalo
             banshees = new List<Banshee>();
             bigfukkers = new List<Phantom>();
             Enemies = new List<IEnemy>();
+
 
         }
 
@@ -62,6 +68,12 @@ namespace BouncyHalo
 
             menu = new Menu(Content);
             gameEnd = new GameEnd(Content);
+
+
+            Text = "Score: ";
+            Score = 0;
+            Font = Content.Load<SpriteFont>("File");
+            TextPosition = new Vector2(1500, 10);
 
 
             AddWraith();
@@ -161,6 +173,8 @@ namespace BouncyHalo
                     banshee.Draw(spriteBatch);
                 foreach (var wraith in bigfukkers)
                     wraith.draw(spriteBatch);
+
+                spriteBatch.DrawString(Font, Text + Score, TextPosition, Color.White);
             }
             else if (state == 2)
             {
