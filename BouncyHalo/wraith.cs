@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -10,69 +11,43 @@ namespace BouncyHalo
 {
     class wraith
     {
-        Texture2D wraith;
-        Texture2D thruster;
-        Texture2D largeLazor;
+        Texture2D bigfukker;
+        Texture2D thruster1;
+        Texture2D thruster2;
+        Texture2D lgLazor;
         Vector2 position;
-        Vector2 thrusterOffset;
+        Vector2 tO1;
+        Vector2 tO2;
 
-
-        public void draw(SpriteBatch sb)
+        public wraith(float x, float y, ContentManager content)
         {
-            sb.Draw(wraith, position, Color.White);
+            position = new Vector2(x, y);
+            bigfukker = content.Load<Texture2D>("wraith");
+            thruster1 = content.Load<Texture2D>("wraith-trhuster-1");
+            thruster2 = content.Load<Texture2D>("wraith-trhuster-2");
+            lgLazor = content.Load<Texture2D>("large-lazor");
+            tO1 = new Vector2(0, 0);
+            tO2 = new Vector2(0, 0);
 
 
-            sb.Draw(thruster, position + thrusterOffset, null, Color.White, 0, Vector2.Zero, Vector2.One, SpriteEffects.FlipHorizontally, 0);
         }
+            public void draw(SpriteBatch sb)
+        {
+            sb.Draw(bigfukker, position, null, Color.White, 0, Vector2.Zero, Vector2.One, SpriteEffects.FlipHorizontally, 0);
+            sb.Draw(thruster1, position + tO2, null, Color.White, 0, Vector2.Zero, Vector2.One, SpriteEffects.None, 0);
+            sb.Draw(thruster2, position + tO1, null, Color.White, 0, Vector2.Zero, Vector2.One, SpriteEffects.None, 0);
+
+        }
+
 
         public void update(GameTime dt)
         {
-            UpdatePosition();
-            UpdateFlameAnimation(dt);
+
+            position.X -= 2f;
 
         }
 
-        public void UpdateFlameAnimation(GameTime dt)
-        {
-            flameShuffleTimer += dt.ElapsedGameTime.Milliseconds;
-            while (flameShuffleTimer >= flameShuffleTime)
-            {
-                flameShuffleTimer -= flameShuffleTime;
-                showLeftFlame = !showLeftFlame;
-            }
-        }
 
-        public void UpdatePosition()
-        {
-            position.Y += 1f;
-            KeyboardState state = Keyboard.GetState();
-            if (state.IsKeyDown(Keys.Right) || state.IsKeyDown(Keys.D))
-            {
-                if (position.X + pelican.Width <= 1920)
-                    position.X += 10f;
-            }
-            if (state.IsKeyDown(Keys.Left) || state.IsKeyDown(Keys.A))
-            {
-                if (position.X >= 0)
-                    position.X -= 10f;
-            }
-            if (state.IsKeyDown(Keys.Up) || state.IsKeyDown(Keys.W))
-            {
-
-                if (position.Y >= 0)
-                    position.Y -= 10f;
-                engineRotation = -0.785f;
-            }
-            if (state.IsKeyDown(Keys.Down) || state.IsKeyDown(Keys.S))
-            {
-                if (position.Y + pelican.Height <= 1080)
-                    position.Y += 10f;
-                engineRotation = 0.785f;
-            }
-            if (!(state.IsKeyDown(Keys.Down) || state.IsKeyDown(Keys.S) || state.IsKeyDown(Keys.Up) || state.IsKeyDown(Keys.W)))
-                engineRotation = 0;
-
-        }
 
     }
 

@@ -76,7 +76,8 @@ namespace BouncyHalo
 
         public void UpdatePosition()
         {
-            position.Y += 1f;
+            if (position.Y + pelican.Height <= 1080)
+                position.Y += 1f;
             KeyboardState state = Keyboard.GetState();
             if (state.IsKeyDown(Keys.Right) || state.IsKeyDown(Keys.D))
             {

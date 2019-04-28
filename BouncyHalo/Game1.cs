@@ -15,14 +15,17 @@ namespace BouncyHalo
         Player player;
         EV environment;
         List<Banshee> banshees;
+        List<wraith> bigfukkers;
 
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
+            graphics.IsFullScreen = true;
             Content.RootDirectory = "Content";
             graphics.PreferredBackBufferWidth = 1920;
             graphics.PreferredBackBufferHeight = 1080;
             banshees = new List<Banshee>();
+            bigfukkers = new List<wraith>();
 
         }
 
@@ -50,6 +53,8 @@ namespace BouncyHalo
             player = new Player(10, 50, Content);
             environment = new EV(Content);
 
+
+            bigfukkers.Add(new wraith(1900, 100, Content));
             banshees.Add(new Banshee(1900, 500, Content));
             // TODO: use this.Content to load your game content here
         }
@@ -78,6 +83,9 @@ namespace BouncyHalo
             environment.update();
             foreach (var banshee in banshees)
                 banshee.Update(gameTime);
+            foreach (var wraith in bigfukkers)
+                wraith.update(gameTime);
+
             base.Update(gameTime);
         }
 
@@ -95,6 +103,9 @@ namespace BouncyHalo
             player.draw(spriteBatch);
             foreach (var banshee in banshees)
                 banshee.Draw(spriteBatch);
+            foreach (var wraith in bigfukkers)
+                wraith.draw(spriteBatch);
+
             spriteBatch.End();
             base.Draw(gameTime);
         }
