@@ -16,34 +16,45 @@ namespace BouncyHalo
         Texture2D engine;
         Texture2D flameL;
         Texture2D flameR;
+        Texture2D LaserSprite;
+
         Vector2 position;
         Vector2 engineoffset;
         Vector2 flameLoffset;
         Vector2 flameRoffset;
         Vector2 flameScale;
+        Vector2 engineOrigin;
+        Vector2 flamesOrigin;
 
+        List<Laser> Lasers;
+
+        float ShootTimer;
+        float ShootTime = 50f;
         int flameShuffleTimer;
         int flameShuffleTime = 75;
         bool showLeftFlame;
-        Vector2 engineOrigin;
-        Vector2 flamesOrigin;
         float engineRotation;
+
+
 
         public Player(float x, float y, ContentManager content)
         {
-
             pelican = content.Load<Texture2D>("pelican");
             engine = content.Load<Texture2D>("engine");
             flameL = content.Load<Texture2D>("flameL");
             flameR = content.Load<Texture2D>("flameR");
+            LaserSprite = content.Load<Texture2D>("orange-bullet-1");
+
+            Lasers = new List<Laser>();
+
             position = new Vector2(x, y);
             engineoffset = new Vector2(140 + (engine.Width * 0.5f), 120 + (engine.Height * 0.5f));
             flamesOrigin = new Vector2(engineoffset.X + flameL.Width, engineoffset.Y + flameL.Height);
             flameLoffset = new Vector2(190, 160);
             flameRoffset = new Vector2(40, 130);
             flameScale = new Vector2(2, 2);
-            engineRotation = 0f;
             engineOrigin = new Vector2((engine.Width * 0.5f), (engine.Height * 0.5f));
+            engineRotation = 0f;
         }
 
         public void draw(SpriteBatch sb)
@@ -56,12 +67,32 @@ namespace BouncyHalo
                 sb.Draw(flameR, position + flameLoffset, null, Color.White, engineRotation, engineOrigin, flameScale, SpriteEffects.FlipHorizontally, 0);
 
             sb.Draw(engine, position + engineoffset, null, Color.White, engineRotation, engineOrigin, Vector2.One, SpriteEffects.FlipHorizontally, 0);
+
+            foreach (var laser in Lasers)
+                laser.Draw(sb);
         }
 
         public void update(GameTime dt)
         {
             UpdatePosition();
             UpdateFlameAnimation(dt);
+
+
+            foreach (var laser in Lasers)
+                laser.Update();
+            Lasers.RemoveAll(l => l.Body.X > 2020
+            );
+
+            ShootTimer += dt.ElapsedGameTime.Milliseconds;
+            if (ShootTimer >= ShootTime)
+            {
+                KeyboardState state = Keyboard.GetState();
+                if(state.IsKeyDown(Keys.Space))
+                {
+                    ShootTimer = 0;
+                    Lasers.Add(new Laser((int)position.X + pelican.Width - 30, (int)position.Y + pelican.Height - 16, 16, 8, -30, LaserSprite));
+                }
+            }
 
         }
 
@@ -107,9 +138,6 @@ namespace BouncyHalo
                 engineRotation = 0;
             
         }
-
-
-
 
     }
 

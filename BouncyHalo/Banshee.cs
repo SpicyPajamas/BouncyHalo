@@ -19,7 +19,7 @@ namespace BouncyHalo
         List<Laser> Lasers;
 
         float ShootTimer;
-        float ShootTime = 100f;
+        float ShootTime = 150f;
 
         float UpAnimTimer;
         float UpAnimTime = 1000f;
@@ -46,7 +46,7 @@ namespace BouncyHalo
             if (ShootTimer >= ShootTime)
             {
                 ShootTimer = 0;
-                Lasers.Add(new Laser(Body.X, Body.Y + 48, 16, 16, 30, LaserSprite));
+                Lasers.Add(new Laser(Body.X, Body.Y + 48, 16, 16, 18, LaserSprite));
             }
 
             UpAnimTimer += dt.ElapsedGameTime.Milliseconds;
