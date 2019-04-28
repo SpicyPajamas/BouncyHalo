@@ -37,7 +37,7 @@ namespace BouncyHalo
             sb.Draw(thruster1, position + tO2, null, Color.White, 0, Vector2.Zero, Vector2.One, SpriteEffects.None, 0);
             sb.Draw(thruster2, position + tO1, null, Color.White, 0, Vector2.Zero, Vector2.One, SpriteEffects.None, 0);
 
-        }
+//        }
 
 
         public void update(GameTime dt)
@@ -45,10 +45,10 @@ namespace BouncyHalo
 
             position.X -= 2f;
 
-        }
+//        }
 
 
 
     }
 
-}
+//}

@@ -12,43 +12,58 @@ namespace BouncyHalo
     class Banshee
     {
 
-        Texture2D Laser;
+        Texture2D LaserSprite;
         Texture2D Ship;
 
         Rectangle Body;
-        Rectangle LaserBody;
+        List<Laser> Lasers;
 
         float ShootTimer;
         float ShootTime = 100f;
+
+        float UpAnimTimer;
+        float UpAnimTime = 1000f;
+        bool GoingUp;
 
 
         public Banshee(int x, int y, ContentManager content)
         {
             Ship = content.Load<Texture2D>("banshee");
-            Laser = content.Load<Texture2D>("smol-lazor-2");
+            LaserSprite = content.Load<Texture2D>("smol-lazor-2");
+            //LaserSprite = content.Load<Texture2D>("large-lazor");
 
             Body = new Rectangle(x, y, 128, 64);
-            LaserBody = new Rectangle(x, y, 16, 16);
+            Lasers = new List<Laser>();
         }
 
         public void Update(GameTime dt)
         {
             Body.X -= 8;
-            LaserBody.X -= 30;
+            foreach (var laser in Lasers)
+                laser.Update();
+            Lasers.RemoveAll(l => l.Body.X < 0);
 
             ShootTimer += dt.ElapsedGameTime.Milliseconds;
-            if(ShootTimer >= ShootTime)
+            if (ShootTimer >= ShootTime)
             {
                 ShootTimer = 0;
-                LaserBody.X = Body.X - 16;
-                LaserBody.Y = Body.Y + 48;
+                Lasers.Add(new Laser(Body.X, Body.Y + 48, 16, 16, 30, LaserSprite));
             }
-        }
 
+            UpAnimTimer += dt.ElapsedGameTime.Milliseconds;
+            if (UpAnimTimer >= UpAnimTime)
+            {
+                UpAnimTimer = 0f;
+                GoingUp = !GoingUp;
+            }
+
+            Body.Y += (GoingUp ? 3 : -3);
+        }
         public void Draw(SpriteBatch sb)
         {
             sb.Draw(Ship, Body, null, Color.White, 0, Vector2.Zero, SpriteEffects.FlipHorizontally, 0);
-            sb.Draw(Laser, LaserBody, null, Color.White, 0, Vector2.Zero, SpriteEffects.FlipHorizontally, 0);
+            foreach (var laser in Lasers)
+                laser.Draw(sb);
         }
 
     }
