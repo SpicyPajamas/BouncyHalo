@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
 using System.Collections.Generic;
 
 namespace BouncyHalo
@@ -54,8 +55,8 @@ namespace BouncyHalo
             environment = new EV(Content);
 
 
-            bigfukkers.Add(new wraith(1900, 100, Content));
-            banshees.Add(new Banshee(1900, 500, Content));
+            AddWraith();
+            AddBanshee();
             // TODO: use this.Content to load your game content here
         }
 
@@ -86,7 +87,29 @@ namespace BouncyHalo
             foreach (var wraith in bigfukkers)
                 wraith.update(gameTime);
 
+            bigfukkers.RemoveAll(b => b.position.X < -600);
+            if (bigfukkers.Count == 0)
+                AddWraith();
+            banshees.RemoveAll(b => b.Body.X + b.Body.Width < -300);
+            if (banshees.Count == 0)
+                AddBanshee();
+
             base.Update(gameTime);
+        }
+
+        private void AddBanshee()
+        {
+            var rng = new Random();
+            banshees.Add(new Banshee(1920, rng.Next(200, 1000), Content));
+        }
+        private void AddWraith()
+        {
+            var rng = new Random();
+            var isTop = rng.Next(2);
+            if (isTop == 0)
+                bigfukkers.Add(new wraith(1900, rng.Next(0, 100), Content));
+            else
+                bigfukkers.Add(new wraith(1900, rng.Next(780, 880), Content));
         }
 
         /// <summary>
@@ -101,6 +124,7 @@ namespace BouncyHalo
             spriteBatch.Begin();
             environment.draw(spriteBatch);
             player.draw(spriteBatch);
+
             foreach (var banshee in banshees)
                 banshee.Draw(spriteBatch);
             foreach (var wraith in bigfukkers)

@@ -10,7 +10,7 @@ namespace BouncyHalo
         private readonly Texture2D thruster1;
         private readonly Texture2D thruster2;
         private readonly Texture2D lgLazor;
-        private Vector2 position;
+        public Vector2 position;
         private Vector2 tO1;
         private Vector2 tO2;
         int thrustShuffleTimer;
@@ -32,7 +32,6 @@ namespace BouncyHalo
             lgLazor = content.Load<Texture2D>("large-lazor");
             tO1 = new Vector2(291, 130);
             tO2 = new Vector2(289, 130);
-
 
         }
         public void draw(SpriteBatch sb)

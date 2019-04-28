@@ -15,7 +15,7 @@ namespace BouncyHalo
         Texture2D LaserSprite;
         Texture2D Ship;
 
-        Rectangle Body;
+        public Rectangle Body;
         List<Laser> Lasers;
 
         float ShootTimer;
@@ -30,7 +30,6 @@ namespace BouncyHalo
         {
             Ship = content.Load<Texture2D>("banshee");
             LaserSprite = content.Load<Texture2D>("smol-lazor-2");
-            //LaserSprite = content.Load<Texture2D>("large-lazor");
 
             Body = new Rectangle(x, y, 128, 64);
             Lasers = new List<Laser>();
@@ -41,7 +40,7 @@ namespace BouncyHalo
             Body.X -= 8;
             foreach (var laser in Lasers)
                 laser.Update();
-            Lasers.RemoveAll(l => l.Body.X < 0);
+            Lasers.RemoveAll(l => l.Body.X < -100);
 
             ShootTimer += dt.ElapsedGameTime.Milliseconds;
             if (ShootTimer >= ShootTime)
