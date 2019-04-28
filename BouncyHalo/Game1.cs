@@ -110,7 +110,7 @@ namespace BouncyHalo
             {
                 if (menu?.Update() ?? true)
                 {
-                    state = 2;
+                    state = 1;
                 }
             }
             else if (state == 1)

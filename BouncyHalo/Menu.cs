@@ -27,10 +27,10 @@ namespace BouncyHalo
         {
             Font = content.Load<SpriteFont>("File");
 
-            TitlePosition = new Vector2(600, 300);
-            PressPosition = new Vector2(600, 600);
+            TitlePosition = new Vector2(520, 350);
+            PressPosition = new Vector2(550, 650);
 
-            Title = "Big Tiddies";
+            Title = "PELICAN JOYRIDE";
             Press = "Press Space to begin.";
         }
 

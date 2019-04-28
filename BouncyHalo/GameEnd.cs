@@ -26,8 +26,8 @@ namespace BouncyHalo
             Font = content.Load<SpriteFont>("File");
             Text = "You have lost, eat butts.";
             Press = "Press space to continue.";
-            TextPosition = new Vector2(600, 300);
-            PressPosition = new Vector2(600, 600);
+            TextPosition = new Vector2(500, 350);
+            PressPosition = new Vector2(500, 650);
         }
 
 
