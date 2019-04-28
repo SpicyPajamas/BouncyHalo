@@ -1,10 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
 
 namespace BouncyHalo
 {
-    internal class wraith
+    class wraith
     {
         private readonly Texture2D bigfukker;
         private readonly Texture2D thruster1;
@@ -20,6 +21,11 @@ namespace BouncyHalo
         float wthUpAnimTime = 1300f;
         bool wthGoingUp;
         
+        List<Laser> lgLasers;
+
+        float ShootTimer;
+        float ShootTime = 1500f;
+
 
 
 
@@ -32,7 +38,7 @@ namespace BouncyHalo
             lgLazor = content.Load<Texture2D>("large-lazor");
             tO1 = new Vector2(291, 130);
             tO2 = new Vector2(289, 130);
-
+            lgLasers = new List<Laser>();
         }
         public void draw(SpriteBatch sb)
         {
@@ -45,6 +51,8 @@ namespace BouncyHalo
             else
                 sb.Draw(thruster2, position + tO2, null);
 
+            foreach (var lgLaser in lgLasers)
+                lgLaser.Draw(sb);
 
         }
 
@@ -71,6 +79,16 @@ namespace BouncyHalo
         {
             UpdateThrustAnimation(dt);
             position.X -= 4f;
+            foreach (var laser in lgLasers)
+                laser.Update();
+            lgLasers.RemoveAll(l => l.Body.X < -100);
+
+            ShootTimer += dt.ElapsedGameTime.Milliseconds;
+            if (ShootTimer >= ShootTime)
+            {
+                ShootTimer = 0;
+                lgLasers.Add(new Laser((int)position.X, (int)position.Y + 48, 60, 30, 15, lgLazor));
+            }
 
         }
 
