@@ -75,6 +75,7 @@ namespace BouncyHalo
             gameEnd = new GameEnd(Content);
 
             ThemeSong = Content.Load<Song>("HaloMusic");
+            MediaPlayer.IsRepeating = true;
             MediaPlayer.Play(ThemeSong);
             HealthText = "Health: ";
             PLHealth = 100;
