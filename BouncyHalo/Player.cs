@@ -26,6 +26,7 @@ namespace BouncyHalo
         int flameShuffleTime = 75;
         bool showLeftFlame;
         Vector2 engineOrigin;
+        Vector2 flamesOrigin;
         float engineRotation;
 
         public Player(float x, float y, ContentManager content)
@@ -36,12 +37,12 @@ namespace BouncyHalo
             flameL = content.Load<Texture2D>("flameL");
             flameR = content.Load<Texture2D>("flameR");
             position = new Vector2(x, y);
-            engineoffset = new Vector2(140, 165);
-            flameLoffset = new Vector2(70, 160);
-            flameRoffset = new Vector2(60, 160);
+            engineoffset = new Vector2(120, 135);
+            flameLoffset = new Vector2(50, 130);
+            flameRoffset = new Vector2(40, 130);
             flameScale = new Vector2(2, 2);
             engineRotation = 0f;
-            engineOrigin = new Vector2();
+            engineOrigin = new Vector2(engine.Width / 2, engine.Height / 2);
         }
 
         public void draw(SpriteBatch sb)
