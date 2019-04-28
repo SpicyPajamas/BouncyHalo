@@ -1,4 +1,4 @@
-﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
@@ -119,6 +119,9 @@ namespace BouncyHalo
                     banshee.Update(gameTime);
                 foreach (var wraith in bigfukkers)
                     wraith.update(gameTime);
+
+                Score += bigfukkers.FindAll(BF => BF.IsDead).Count;
+                Score += banshees.FindAll(Banch => Banch.IsDead).Count;
 
                 bigfukkers.RemoveAll(b => b.position.X < -600 || b.IsDead);
                 if (bigfukkers.Count == 0)
