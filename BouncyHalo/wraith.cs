@@ -87,7 +87,7 @@ namespace BouncyHalo
             if (ShootTimer >= ShootTime)
             {
                 ShootTimer = 0;
-                lgLasers.Add(new Laser((int)position.X, (int)position.Y + 48, 60, 30, 15, lgLazor));
+                lgLasers.Add(new Laser((int)position.X + -50, (int)position.Y + 200, 60, 30, 15, lgLazor));
             }
 
         }
