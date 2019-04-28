@@ -16,6 +16,11 @@ namespace BouncyHalo
         int thrustShuffleTimer;
         int thrustShuffleTime = 75;
         bool showLeftThrust;
+        float wthUpAnimTimer;
+        float wthUpAnimTime = 1300f;
+        bool wthGoingUp;
+        
+
 
 
         public wraith(float x, float y, ContentManager content)
@@ -51,6 +56,15 @@ namespace BouncyHalo
                 thrustShuffleTimer -= thrustShuffleTime;
                 showLeftThrust = !showLeftThrust;
             }
+            wthUpAnimTimer += dt.ElapsedGameTime.Milliseconds;
+            if (wthUpAnimTimer >= wthUpAnimTime)
+            {
+                wthUpAnimTimer = 0f;
+                wthGoingUp = !wthGoingUp;
+            }
+
+            position.Y += (wthGoingUp ? 0.5f : -0.5f);
+
         }
 
         public void update(GameTime dt)
