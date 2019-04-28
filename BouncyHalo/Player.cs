@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace BouncyHalo
 {
-    class Player
+    class Player : IEnemy
     {
         Texture2D pelican;
         Texture2D engine;
@@ -35,10 +35,16 @@ namespace BouncyHalo
         bool showLeftFlame;
         float engineRotation;
 
+        int Health = 100;
+        bool IsDead;
+
+        List<IEnemy> Targets;
 
 
-        public Player(float x, float y, ContentManager content)
+        public Player(float x, float y, ContentManager content, List<IEnemy> targets)
         {
+            Targets = targets;
+
             pelican = content.Load<Texture2D>("pelican");
             engine = content.Load<Texture2D>("engine");
             flameL = content.Load<Texture2D>("flameL");
@@ -90,7 +96,7 @@ namespace BouncyHalo
                 if(state.IsKeyDown(Keys.Space))
                 {
                     ShootTimer = 0;
-                    Lasers.Add(new Laser((int)position.X + pelican.Width - 30, (int)position.Y + pelican.Height - 16, 16, 8, -30, LaserSprite));
+                    Lasers.Add(new Laser((int)position.X + pelican.Width - 30, (int)position.Y + pelican.Height - 16, 16, 8, -30, 10, LaserSprite, Targets));
                 }
             }
 
@@ -136,7 +142,25 @@ namespace BouncyHalo
             }
             if (!(state.IsKeyDown(Keys.Down) || state.IsKeyDown(Keys.S) || state.IsKeyDown(Keys.Up) || state.IsKeyDown(Keys.W)))
                 engineRotation = 0;
-            
+
+        }
+
+        public bool IsCollided(Rectangle body)
+        {
+            var topRight = new Vector2(position.X + pelican.Width, position.Y);
+            var bottomRight = new Vector2(position.X + pelican.Width, position.Y + pelican.Height);
+            var bottomLeft = new Vector2(position.X, position.Y + pelican.Height);
+            if (body.Contains(position) || body.Contains(topRight) ||
+                body.Contains(bottomRight) || body.Contains(bottomLeft))
+                return true;
+            return false;
+        }
+
+        public void DoDamage(int damage)
+        {
+            Health -= damage;
+            if (Health < 0)
+                IsDead = true;
         }
 
     }

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace BouncyHalo
 {
-    class Banshee
+    class Banshee : IEnemy
     {
 
         Texture2D LaserSprite;
@@ -25,9 +25,15 @@ namespace BouncyHalo
         float UpAnimTime = 1000f;
         bool GoingUp;
 
+        int Health = 100;
+        bool IsDead;
 
-        public Banshee(int x, int y, ContentManager content)
+        List<IEnemy> Targets;
+
+        public Banshee(int x, int y, ContentManager content, List<IEnemy> targets)
         {
+            Targets = targets;
+
             Ship = content.Load<Texture2D>("banshee");
             LaserSprite = content.Load<Texture2D>("smol-lazor-2");
 
@@ -46,7 +52,7 @@ namespace BouncyHalo
             if (ShootTimer >= ShootTime)
             {
                 ShootTimer = 0;
-                Lasers.Add(new Laser(Body.X, Body.Y + 48, 16, 16, 18, LaserSprite));
+                Lasers.Add(new Laser(Body.X, Body.Y + 48, 16, 16, 18, 5, LaserSprite, Targets));
             }
 
             UpAnimTimer += dt.ElapsedGameTime.Milliseconds;
@@ -65,5 +71,16 @@ namespace BouncyHalo
                 laser.Draw(sb);
         }
 
+        public bool IsCollided(Rectangle body)
+        {
+            return Body.Intersects(body);
+        }
+
+        public void DoDamage(int damage)
+        {
+            Health -= damage;
+            if (Health < 0)
+                IsDead = true;
+        }
     }
 }

@@ -45,6 +45,7 @@
     <Compile Include="Environment.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="GameEnd.cs" />
+    <Compile Include="IEnemy.cs" />
     <Compile Include="Laser.cs" />
     <Compile Include="Menu.cs" />
     <Compile Include="Player.cs" />
