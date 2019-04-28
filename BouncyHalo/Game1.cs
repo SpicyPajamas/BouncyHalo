@@ -69,7 +69,7 @@ namespace BouncyHalo
                 Exit();
 
             // TODO: Add your update logic here
-            player.update();
+            player.update(gameTime);
             environment.update();
             base.Update(gameTime);
         }
