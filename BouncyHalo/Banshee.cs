@@ -25,8 +25,8 @@ namespace BouncyHalo
         float UpAnimTime = 1000f;
         bool GoingUp;
 
-        int Health = 100;
-        bool IsDead;
+        int Health = 50;
+        public bool IsDead;
 
         List<IEnemy> Targets;
 
@@ -52,7 +52,7 @@ namespace BouncyHalo
             if (ShootTimer >= ShootTime)
             {
                 ShootTimer = 0;
-                Lasers.Add(new Laser(Body.X, Body.Y + 48, 16, 16, 18, 5, LaserSprite, Targets));
+                Lasers.Add(new Laser(Body.X, Body.Y + 48, 16, 16, 18, 2, LaserSprite, Targets));
             }
 
             UpAnimTimer += dt.ElapsedGameTime.Milliseconds;

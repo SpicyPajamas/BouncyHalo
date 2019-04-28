@@ -36,7 +36,7 @@ namespace BouncyHalo
         float engineRotation;
 
         int Health = 100;
-        bool IsDead;
+        public bool IsDead;
 
         List<IEnemy> Targets;
 
@@ -78,8 +78,10 @@ namespace BouncyHalo
                 laser.Draw(sb);
         }
 
-        public void update(GameTime dt)
+        public void update(GameTime dt, List<IEnemy> targets)
         {
+            Targets = targets;
+
             UpdatePosition();
             UpdateFlameAnimation(dt);
 

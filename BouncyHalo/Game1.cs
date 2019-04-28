@@ -16,9 +16,10 @@ namespace BouncyHalo
         Player player;
         EV environment;
         List<Banshee> banshees;
-        List<wraith> bigfukkers;
+        List<Phantom> bigfukkers;
         Menu menu;
         GameEnd gameEnd;
+        List<IEnemy> Enemies;
 
         int state;
 
@@ -30,7 +31,8 @@ namespace BouncyHalo
             graphics.PreferredBackBufferWidth = 1920;
             graphics.PreferredBackBufferHeight = 1080;
             banshees = new List<Banshee>();
-            bigfukkers = new List<wraith>();
+            bigfukkers = new List<Phantom>();
+            Enemies = new List<IEnemy>();
 
         }
 
@@ -55,7 +57,7 @@ namespace BouncyHalo
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            player = new Player(10, 50, Content);
+            player = new Player(10, 50, Content, Enemies);
             environment = new EV(Content);
 
             menu = new Menu(Content);
@@ -85,8 +87,11 @@ namespace BouncyHalo
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-            
-            player.update(gameTime);
+
+            Enemies.Clear();
+            Enemies.AddRange(banshees);
+            Enemies.AddRange(bigfukkers);
+            player.update(gameTime, Enemies);
             environment.update();
 
             if (state == 0)
@@ -103,10 +108,10 @@ namespace BouncyHalo
                 foreach (var wraith in bigfukkers)
                     wraith.update(gameTime);
 
-                bigfukkers.RemoveAll(b => b.position.X < -600);
+                bigfukkers.RemoveAll(b => b.position.X < -600 || b.IsDead);
                 if (bigfukkers.Count == 0)
                     AddWraith();
-                banshees.RemoveAll(b => b.Body.X + b.Body.Width < -300);
+                banshees.RemoveAll(b => b.Body.X + b.Body.Width < -300 || b.IsDead);
                 if (banshees.Count == 0)
                     AddBanshee();
             }
@@ -124,13 +129,13 @@ namespace BouncyHalo
         private void AddBanshee()
         {
             var rng = new Random();
-            banshees.Add(new Banshee(1920, rng.Next(200, 1000), Content));
+            banshees.Add(new Banshee(1920, rng.Next(200, 1000), Content, new List<IEnemy> { player }));
         }
         private void AddWraith()
         {
             var rng = new Random();
-            bigfukkers.Add(new wraith(1900, rng.Next(0, 400), Content));
-            bigfukkers.Add(new wraith(1900, rng.Next(500, 800), Content));
+            bigfukkers.Add(new Phantom(1900, rng.Next(0, 400), Content, new List<IEnemy> { player }));
+            bigfukkers.Add(new Phantom(1900, rng.Next(500, 800), Content, new List<IEnemy> { player }));
         }
 
         /// <summary>

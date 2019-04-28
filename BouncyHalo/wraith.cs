@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace BouncyHalo
 {
-    class wraith : IEnemy
+    class Phantom : IEnemy
     {
         private readonly Texture2D bigfukker;
         private readonly Texture2D thruster1;
@@ -30,12 +30,12 @@ namespace BouncyHalo
         float ShootTime = 1500f;
 
         int Health = 100;
-        bool IsDead;
+        public bool IsDead;
 
         List<IEnemy> Targets;
 
 
-        public wraith(float x, float y, ContentManager content, List<IEnemy> targets)
+        public Phantom(float x, float y, ContentManager content, List<IEnemy> targets)
         {
             Targets = targets;
 
@@ -97,7 +97,7 @@ namespace BouncyHalo
             if (ShootTimer >= ShootTime)
             {
                 ShootTimer = 0;
-                lgLasers.Add(new Laser((int)position.X + -50, (int)position.Y + 200, 60, 30, 15, lgLazor));
+                lgLasers.Add(new Laser((int)position.X + -50, (int)position.Y + 200, 60, 30, 15, 25, lgLazor, Targets));
             }
 
         }
