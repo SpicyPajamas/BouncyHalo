@@ -79,20 +79,25 @@ namespace BouncyHalo
             KeyboardState state = Keyboard.GetState();
             if (state.IsKeyDown(Keys.Right) || state.IsKeyDown(Keys.D))
             {
+                if(position.X + pelican.Width <= 1920)
                 position.X += 10f;
             }
             if (state.IsKeyDown(Keys.Left) || state.IsKeyDown(Keys.A))
             {
-                position.X -= 10f;
+               if (position.X >= 0)
+                    position.X -= 10f;
             }
             if (state.IsKeyDown(Keys.Up) || state.IsKeyDown(Keys.W))
             {
-                position.Y -= 10f;
+
+                if (position.Y >= 0)
+                    position.Y -= 10f;
                 engineRotation = -0.785f;
             }
             if (state.IsKeyDown(Keys.Down) || state.IsKeyDown(Keys.S))
             {
-                position.Y += 10f;
+                if (position.Y + pelican.Height <= 1080)
+                    position.Y += 10f;
                 engineRotation = 0.785f;
             }
             if (!(state.IsKeyDown(Keys.Down) || state.IsKeyDown(Keys.S) || state.IsKeyDown(Keys.Up) || state.IsKeyDown(Keys.W)))
