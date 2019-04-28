@@ -35,7 +35,7 @@ namespace BouncyHalo
         bool showLeftFlame;
         float engineRotation;
 
-        int Health = 100;
+        public int Health = 100;
         public bool IsDead;
 
         List<IEnemy> Targets;

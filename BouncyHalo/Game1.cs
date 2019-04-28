@@ -129,12 +129,19 @@ namespace BouncyHalo
                 banshees.RemoveAll(b => b.Body.X + b.Body.Width < -300 || b.IsDead);
                 if (banshees.Count == 0)
                     AddBanshee();
+                if (player.IsDead)
+                    state = 2;
             }
             else if (state == 2)
             {
                 if (gameEnd?.update() ?? true)
                 {
                     state = 1;
+                    player.Health = 100;
+                    Score = 0;
+                    player.IsDead = false;
+                    bigfukkers.Clear();
+                    banshees.Clear();
                 }
             }
 
