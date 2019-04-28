@@ -36,6 +36,7 @@ namespace BouncyHalo
         float engineRotation;
 
         public int Health = 100;
+        int Damage = 20;
         public bool IsDead;
 
         List<IEnemy> Targets;
@@ -88,8 +89,7 @@ namespace BouncyHalo
 
             foreach (var laser in Lasers)
                 laser.Update();
-            Lasers.RemoveAll(l => l.Body.X > 2020
-            );
+            Lasers.RemoveAll(l => l.Body.X > 2020 || l.IsDead);
 
             ShootTimer += dt.ElapsedGameTime.Milliseconds;
             if (ShootTimer >= ShootTime)
@@ -98,7 +98,7 @@ namespace BouncyHalo
                 if(state.IsKeyDown(Keys.Space))
                 {
                     ShootTimer = 0;
-                    Lasers.Add(new Laser((int)position.X + pelican.Width - 30, (int)position.Y + pelican.Height - 16, 16, 8, -30, 1, LaserSprite, Targets));
+                    Lasers.Add(new Laser((int)position.X + pelican.Width - 30, (int)position.Y + pelican.Height - 16, 16, 8, -30, Damage, LaserSprite, Targets));
                 }
             }
 

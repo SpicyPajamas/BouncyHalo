@@ -46,7 +46,7 @@ namespace BouncyHalo
             Body.X -= 8;
             foreach (var laser in Lasers)
                 laser.Update();
-            Lasers.RemoveAll(l => l.Body.X < -100);
+            Lasers.RemoveAll(l => l.Body.X < -100 || l.IsDead);
 
             ShootTimer += dt.ElapsedGameTime.Milliseconds;
             if (ShootTimer >= ShootTime)
