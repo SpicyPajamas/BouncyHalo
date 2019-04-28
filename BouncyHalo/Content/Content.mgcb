@@ -85,6 +85,13 @@
 /processorParam:TextureFormat=Color
 /build:../../Assets/flameR.png;flameR.png
 
+#begin ../../Assets/fonts/File.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:../../Assets/fonts/File.spritefont;File.spritefont
+
 #begin ../../Assets/large-lazor.png
 /importer:TextureImporter
 /processor:TextureProcessor
